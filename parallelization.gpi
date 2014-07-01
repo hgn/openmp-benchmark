@@ -1,0 +1,45 @@
+set term postscript eps enhanced color
+set terminal postscript enhanced "Times" 12
+set output "parallelization.eps"
+
+set style line 1 linetype 1 linecolor rgb "#999999" lw 2
+set key left top
+set key box linestyle 1
+set key spacing 1.2
+
+set title "Matrix Multiplication Parallelization"
+set xlabel "Matrix Size [byte]"
+set ylabel "Processing Time [seconds]"
+
+
+#set yrange [4700 : 5100]
+#set xrange [1 : 44]
+
+
+
+set grid xtics ytics mytics
+
+set style line 1 linetype 1 linecolor rgb "#000000" lw 2
+set style line 2 linetype 2 linecolor rgb "#000000" lw 2
+set style line 3 linetype 3 linecolor rgb "#000000" lw 2
+set style line 4 linetype 4 linecolor rgb "#000000" lw 2
+set style line 5 linetype 5 linecolor rgb "#000000" lw 2
+set style line 6 linetype 6 linecolor rgb "#000000" lw 2
+
+plot \
+     "serial.data" using 1:2 title "serial procession"   with lines ls 1, \
+     "pthread.data" using 1:2 title  "threaded procession"   with lines ls 2, \
+     "openmpnoschedule.data" using 1:2 title  "openmp (noschedule) procession"   with lines ls 3, \
+     "openmpschedule.data" using 1:2 title  "openmp (schedule) procession"   with lines ls 4, \
+     "openmpscheduledynamic.data" using 1:2 title  "openmp (schedule dynamic) procession"   with lines ls 5
+
+set style line 1 linetype 1 linecolor rgb "#000000" lw 4
+set style line 2 linetype 1 linecolor rgb "#3e6694" lw 4 
+set style line 3 linetype 1 linecolor rgb "#c400cf" lw 4 
+set style line 4 linetype 1 linecolor rgb "#946c3e" lw 4 
+set style line 5 linetype 1 linecolor rgb "#ff2a26" lw 4 
+set style line 6 linetype 1 linecolor rgb "#4e9a06" lw 4 
+
+set output "parallelization-color.eps"
+
+replot
